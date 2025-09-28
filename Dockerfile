@@ -14,7 +14,7 @@ COPY src/frontend/package-lock.json ./
 RUN npm install
 
 # Copy the rest of the frontend source code
-COPY src/frontend/ ./
+COPY src/ ./
 
 # Build the React application for production
 # This creates a 'build' folder with static assets
