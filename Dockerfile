@@ -1,35 +1,31 @@
 # --- Stage 1: Build the React Frontend ---
-# Use a Node.js image to build the React application
 FROM node:18-alpine AS build
-
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
-# We use src/frontend to specify where your React app lives
+# Copy package.json and package-lock.json first to cache dependencies
 COPY package.json ./
 COPY package-lock.json ./
 
-# Install project dependencies
-RUN npm install
+# Use 'npm ci' for a clean, reliable install in CI/CD environments
+# This will install your devDependencies like typescript and vite
+RUN npm ci
 
-# Copy the rest of the frontend source code
-COPY src/ ./
+# Copy the rest of your source code
+COPY . .
 
 # Build the React application for production
-# This creates a 'build' folder with static assets
+# This will create the 'dist' folder
 RUN npm run build
 
 # --- Stage 2: Serve the Static Files with Nginx ---
-# Use a very lightweight Nginx image to serve the built static files
 FROM nginx:alpine
 
-# Copy the static assets from the build stage to Nginx's public directory
-# The 'build' folder from the previous stage is copied here
+# Copy the built static assets from the build stage to Nginx's public directory
+# Using the 'dist' folder as you specified
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80, which Nginx listens on by default
 EXPOSE 80
 
-# Command to run Nginx (default for nginx:alpine image)
+# Command to run Nginx
 CMD ["nginx", "-g", "daemon off;"]
