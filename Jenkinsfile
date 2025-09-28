@@ -30,7 +30,7 @@ pipeline {
                     echo "Building Docker image as: ${HARBOR_IMAGE}"
                     
                     // Build the image directly with the final tag
-                    customImage = docker.build(HARBOR_IMAGE)
+                    customImage = docker.build(HARBOR_IMAGE, '--no-cache .')
 
                     echo "Logging into Harbor at ${harborIp}"
                     docker.withRegistry("http://${harborIp}", 'harbor-creds') {
