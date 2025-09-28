@@ -7,8 +7,8 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json to install dependencies
 # We use src/frontend to specify where your React app lives
-COPY src/frontend/package.json ./
-COPY src/frontend/package-lock.json ./
+COPY package.json ./
+COPY package-lock.json ./
 
 # Install project dependencies
 RUN npm install
