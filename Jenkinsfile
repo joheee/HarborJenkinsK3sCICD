@@ -7,16 +7,37 @@ pipeline {
     agent any
 
     environment {
+        // Generate the dynamic version tag, e.g., "1", "2", etc.
         IMAGE_TAG = "${env.BUILD_NUMBER}"
+        
+        // Construct the full image name for Harbor
         HARBOR_IMAGE = "${harborIp}/${harborProject}/${imageName}:${IMAGE_TAG}"
     }
 
     stages {
         stage('Checkout Code') {
-		    steps {
-		        // This command is powered by the Git plugin
-		        checkout scm
-		    }
-		}
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build and Push Image') {
+            steps {
+                script {
+                    echo "Building Docker image: ${imageName}"
+                    def customImage = docker.build(imageName)
+
+                    echo "Logging into Harbor at ${harborIp}"
+                    docker.withRegistry("http://${harborIp}", 'harbor-creds') {
+                        
+                        echo "Tagging image as: ${HARBOR_IMAGE}"
+                        customImage.tag(HARBOR_IMAGE)
+
+                        echo "Pushing image to Harbor"
+                        customImage.push()
+                    }
+                }
+            }
+        }
     }
 }
