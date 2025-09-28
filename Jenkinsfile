@@ -24,33 +24,26 @@ pipeline {
             }
         }
 
-        stage('Build and Push Image') {
+        stage('Build, Push, and Cleanup Image') {
             steps {
                 script {
                     echo "Building Docker image as: ${HARBOR_IMAGE}"
-                    
-                    // Build the image directly with the final tag
                     customImage = docker.build(HARBOR_IMAGE, '--no-cache .')
 
                     echo "Logging into Harbor at ${harborIp}"
                     docker.withRegistry("http://${harborIp}", 'harbor-creds') {
-                        
                         echo "Pushing image to Harbor"
-                        // No need to tag again, just push
                         customImage.push()
                     }
+
+                    echo "Cleaning up local Docker image"
+                    sh "docker rmi ${HARBOR_IMAGE}"
+
+                    echo "Pruning Docker build cache and unused data"
+                    sh "docker system prune -f"
                 }
             }
         }
         
-        stage('Cleanup') {
-            steps {
-                script {
-                    echo "Cleaning up local Docker image"
-                    // Only need to remove the one final image
-                    sh "docker rmi ${HARBOR_IMAGE}"
-                }
-            }
-        }
     }
 }
