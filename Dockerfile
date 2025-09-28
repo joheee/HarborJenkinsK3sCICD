@@ -26,6 +26,4 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80, which Nginx listens on by default
 EXPOSE 80
-
-# Command to run Nginx
 CMD ["nginx", "-g", "daemon off;"]
