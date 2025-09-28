@@ -3,14 +3,14 @@ def harborIp      = "192.168.206.52"
 def harborProject = "library"
 def imageName     = "react-cicd"
 
+// Declare the customImage variable here, outside the pipeline block
+def customImage
+
 pipeline {
     agent any
 
     environment {
-        // Generate the dynamic version tag, e.g., "1", "2", etc.
         IMAGE_TAG = "${env.BUILD_NUMBER}"
-        
-        // Construct the full image name for Harbor
         HARBOR_IMAGE = "${harborIp}/${harborProject}/${imageName}:${IMAGE_TAG}"
     }
 
@@ -25,9 +25,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image: ${imageName}"
-                    
-                    def customImage = docker.build(imageName)
-
+                    customImage = docker.build(imageName)
                     echo "Finish build docker image: ${imageName}"
                 }
             }
@@ -38,10 +36,8 @@ pipeline {
                 script {
                     echo "Logging into Harbor at ${harborIp}"
                     docker.withRegistry("http://${harborIp}", 'harbor-creds') {
-                        
                         echo "Tagging image as: ${HARBOR_IMAGE}"
                         customImage.tag(HARBOR_IMAGE)
-
                         echo "Pushing image to Harbor"
                         customImage.push()
                     }
