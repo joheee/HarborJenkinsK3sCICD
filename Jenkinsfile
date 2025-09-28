@@ -21,12 +21,21 @@ pipeline {
             }
         }
 
-        stage('Build and Push Image') {
+        stage('Build Image') {
             steps {
                 script {
                     echo "Building Docker image: ${imageName}"
+                    
                     def customImage = docker.build(imageName)
 
+                    echo "Finish build docker image: ${imageName}"
+                }
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+                script {
                     echo "Logging into Harbor at ${harborIp}"
                     docker.withRegistry("http://${harborIp}", 'harbor-creds') {
                         
