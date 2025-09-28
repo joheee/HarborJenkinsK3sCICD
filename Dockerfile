@@ -1,5 +1,5 @@
 # --- Stage 1: Build the React Frontend ---
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json first to cache dependencies
