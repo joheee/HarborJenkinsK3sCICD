@@ -16,6 +16,6 @@ spec:
       - name: my-harbor-secret  
       containers:
       - name: react-cicd-container
-        image: 192.168.206.52/library/react-cicd:43 
+        image: react-cicd-image-placeholder 
         ports:
         - containerPort: 80
