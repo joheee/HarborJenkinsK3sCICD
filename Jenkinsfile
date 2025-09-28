@@ -10,7 +10,10 @@ pipeline {
     agent any
 
     environment {
+        // Generate the dynamic version tag, e.g., "1", "2", etc.
         IMAGE_TAG = "${env.BUILD_NUMBER}"
+        
+        // Construct the full image name for Harbor
         HARBOR_IMAGE = "${harborIp}/${harborProject}/${imageName}:${IMAGE_TAG}"
     }
 
@@ -21,26 +24,31 @@ pipeline {
             }
         }
 
-        stage('Build Image') {
+        stage('Build and Push Image') {
             steps {
                 script {
-                    echo "Building Docker image: ${imageName}"
-                    customImage = docker.build(imageName)
-                    echo "Finish build docker image: ${imageName}"
+                    echo "Building Docker image as: ${HARBOR_IMAGE}"
+                    
+                    // Build the image directly with the final tag
+                    customImage = docker.build(HARBOR_IMAGE)
+
+                    echo "Logging into Harbor at ${harborIp}"
+                    docker.withRegistry("http://${harborIp}", 'harbor-creds') {
+                        
+                        echo "Pushing image to Harbor"
+                        // No need to tag again, just push
+                        customImage.push()
+                    }
                 }
             }
         }
-
-        stage('Push Image') {
+        
+        stage('Cleanup') {
             steps {
                 script {
-                    echo "Logging into Harbor at ${harborIp}"
-                    docker.withRegistry("http://${harborIp}", 'harbor-creds') {
-                        echo "Tagging image as: ${HARBOR_IMAGE}"
-                        customImage.tag(HARBOR_IMAGE)
-                        echo "Pushing image to Harbor"
-                        customImage.push()
-                    }
+                    echo "Cleaning up local Docker image"
+                    // Only need to remove the one final image
+                    sh "docker rmi ${HARBOR_IMAGE}"
                 }
             }
         }
