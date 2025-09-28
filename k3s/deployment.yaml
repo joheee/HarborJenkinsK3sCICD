@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-cicd-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-cicd
+  template:
+    metadata:
+      labels:
+        app: react-cicd
+    spec:
+      imagePullSecrets:
+      - name: my-harbor-secret  
+      containers:
+      - name: react-cicd-container
+        image: 192.168.206.52/library/react-cicd:43 
+        ports:
+        - containerPort: 80
