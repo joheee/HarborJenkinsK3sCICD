@@ -14,6 +14,14 @@ pipeline {
     }
 
     stages {
+        stage('Verify Deployment') {
+            steps {
+                timeout(time: 30, unit: 'MINUTES') {
+                    input message: "Deployment is live. Please verify. Abort to roll back."
+                }
+            }
+        }
+
         stage('Checkout Code') {
             steps {
                 checkout scm
@@ -60,6 +68,14 @@ pipeline {
 
                 echo "Pruning Docker build cache..."
                 sh "docker system prune -f || true"
+            }
+        }
+        aborted {
+            script {
+                echo "Pipeline Aborted! Rolling back..."
+                withKubeConfig(credentialsId: 'k3s-config') {
+                    sh "kubectl rollout undo deployment/react-cicd-deployment"
+                }
             }
         }
     }
