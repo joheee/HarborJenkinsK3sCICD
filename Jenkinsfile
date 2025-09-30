@@ -1,10 +1,10 @@
 // VARIABLES
-def harborIp       = "192.168.206.52"
-def harborProject  = "library"
-def imageName      = "react-cicd"
-def deploymentFile = "k8s/deployment.yaml"
-def deploymentName = "react-cicd-deployment"
-def tempDeploymentFile = "${deploymentFile}.tmp"
+def HARBOR_IP = "192.168.206.52"
+def HARBOR_PROJECT = "library"
+def IMAGE_NAME = "react-cicd"
+def DEPLOYMENT_FILE = "k8s/deployment.yaml"
+def DEPLOYMENT_NAME = "react-cicd-deployment"
+def TEMP_DEPLOYMENT_NAME = "${DEPLOYMENT_FILE}.tmp"
 
 def HARBOR_CRED = 'harbor-creds'
 def K3S_CONFIG = 'k3s-config'
@@ -14,7 +14,7 @@ pipeline {
 
     environment {
         IMAGE_TAG = "${env.BUILD_NUMBER}"
-        HARBOR_IMAGE = "${harborIp}/${harborProject}/${imageName}:${IMAGE_TAG}"
+        HARBOR_IMAGE = "${HARBOR_IP}/${HARBOR_PROJECT}/${IMAGE_NAME}:${IMAGE_TAG}"
     }
 
     stages {
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     def customImage = docker.build(HARBOR_IMAGE)
-                    docker.withRegistry("http://${harborIp}", HARBOR_CRED) {
+                    docker.withRegistry("http://${HARBOR_IP}", HARBOR_CRED) {
                         customImage.push()
                     }
                 }
@@ -47,12 +47,12 @@ pipeline {
             steps {
                 script {
                     echo "Updating deployment manifest with new image: ${HARBOR_IMAGE}"
-                    sh "sed 's|react-cicd-image-placeholder|${HARBOR_IMAGE}|g' ${deploymentFile} > ${tempDeploymentFile}"
+                    sh "sed 's|react-cicd-image-placeholder|${HARBOR_IMAGE}|g' ${DEPLOYMENT_FILE} > ${TEMP_DEPLOYMENT_NAME}"
                     
                     withKubeConfig(credentialsId: 'k3s-config') {
                         echo "Applying configuration to Kubernetes..."
                         sh "kubectl apply -f k8s/service.yaml"
-                        sh "kubectl apply -f ${tempDeploymentFile}"
+                        sh "kubectl apply -f ${TEMP_DEPLOYMENT_NAME}"
                     }
                 }
             }
@@ -68,7 +68,7 @@ pipeline {
                 sh "docker rmi -f ${HARBOR_IMAGE} || true"
 
                 echo "Cleaning up temporary deployment file..."
-                sh "rm -f ${tempDeploymentFile} || true"
+                sh "rm -f ${TEMP_DEPLOYMENT_NAME} || true"
 
                 echo "Pruning Docker build cache..."
                 sh "docker system prune -f || true"
@@ -78,7 +78,7 @@ pipeline {
             script {
                 echo "Pipeline Aborted! Rolling back..."
                 withKubeConfig(credentialsId: K3S_CONFIG) {
-                    sh "kubectl rollout undo deployment/${deploymentName}"
+                    sh "kubectl rollout undo deployment/${DEPLOYMENT_NAME}"
                 }
             }
         }
