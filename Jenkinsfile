@@ -3,6 +3,7 @@ def harborIp       = "192.168.206.52"
 def harborProject  = "library"
 def imageName      = "react-cicd"
 def deploymentFile = "k8s/deployment.yaml"
+def deploymentName = "react-cicd-deployment"
 def tempDeploymentFile = "${deploymentFile}.tmp"
 
 pipeline {
@@ -74,7 +75,7 @@ pipeline {
             script {
                 echo "Pipeline Aborted! Rolling back..."
                 withKubeConfig(credentialsId: 'k3s-config') {
-                    sh "kubectl rollout undo deployment/react-cicd-deployment"
+                    sh "kubectl rollout undo deployment/${deploymentName}"
                 }
             }
         }
