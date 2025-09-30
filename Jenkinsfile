@@ -6,6 +6,9 @@ def deploymentFile = "k8s/deployment.yaml"
 def deploymentName = "react-cicd-deployment"
 def tempDeploymentFile = "${deploymentFile}.tmp"
 
+def HARBOR_CRED = 'harbor-creds'
+def K3S_CONFIG = 'k3s-config'
+
 pipeline {
     agent any
 
@@ -33,7 +36,7 @@ pipeline {
             steps {
                 script {
                     def customImage = docker.build(HARBOR_IMAGE)
-                    docker.withRegistry("http://${harborIp}", 'harbor-creds') {
+                    docker.withRegistry("http://${harborIp}", HARBOR_CRED) {
                         customImage.push()
                     }
                 }
@@ -74,7 +77,7 @@ pipeline {
         aborted {
             script {
                 echo "Pipeline Aborted! Rolling back..."
-                withKubeConfig(credentialsId: 'k3s-config') {
+                withKubeConfig(credentialsId: K3S_CONFIG) {
                     sh "kubectl rollout undo deployment/${deploymentName}"
                 }
             }
