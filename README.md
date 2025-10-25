@@ -5,7 +5,6 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 
 ## Core Concepts Demonstrated
 
-This project showcases the implementation of several key DevOps principles:
 * **CI/CD:** Automation from code commit to production deployment.
 * **IaC:** Kubernetes manifests (`deployment.yaml`, `service.yaml`) are version-controlled in Git.
 * **Containerization:** The application is packaged into a Docker image.
