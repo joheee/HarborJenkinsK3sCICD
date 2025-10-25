@@ -15,19 +15,20 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 
 ## Architecture Diagram
 
-*(This is where you will embed the diagram image you create. In Markdown, you do it like this:)*
 `![Architecture Diagram](path/to/your/diagram.png)`
+* exp 1 
+* exp 2
 
 
 ## The CI/CD Workflow
 
-1.  **Checkout:** Jenkins pulls the latest source code from the GitHub repository.
-2.  **Build Image:** Jenkins uses the `Dockerfile` to build a new, version-tagged Docker image of the React application. The image tag is automatically incremented using the Jenkins build number (e.g., `react-cicd:55`).
-3.  **Push to Registry:** The newly built image is pushed to a private Harbor registry, ensuring our artifacts are stored securely.
-4.  **Deploy to Kubernetes:** Jenkins uses `kubectl` to apply the Kubernetes manifests (`deployment.yaml` and `service.yaml`).
+1.  Jenkins pulls the latest source code from the GitHub repository.
+2.  Jenkins uses the `Dockerfile` to build a new, version-tagged Docker image of the React application. The image tag is automatically incremented using the Jenkins build number (e.g., `react-cicd:55`).
+3.  The newly built image is pushed to a private Harbor registry, ensuring our artifacts are stored securely.
+4.  Jenkins uses `kubectl` to apply the Kubernetes manifests (`deployment.yaml` and `service.yaml`).
     * It first updates the `deployment.yaml` to use the new image tag.
     * `kubectl apply` then triggers a **rolling update**, ensuring zero downtime for the application.
-5.  **Cleanup:** The Jenkins agent cleans up the local Docker image to conserve disk space.
+5.  The Jenkins agent cleans up the local Docker image to conserve disk space.
 
 
 ## How to Run This Project
