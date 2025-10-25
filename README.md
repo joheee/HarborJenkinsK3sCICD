@@ -3,16 +3,16 @@
 This repository contains the complete setup for a CI/CD pipeline that automatically builds and deploys a containerized React application to a Kubernetes cluster. 
 
 
-## 🏗️ Core Concepts Demonstrated
+## Core Concepts Demonstrated
 
 This project showcases the implementation of several key DevOps principles:
-* **CI/CD (Continuous Integration/Continuous Deployment):** Automation from code commit to production deployment.
-* **Infrastructure as Code (IaC):** Kubernetes manifests (`deployment.yaml`, `service.yaml`) are version-controlled in Git.
-* **Containerization:** The application is packaged into a lightweight, portable Docker image.
+* **CI/CD:** Automation from code commit to production deployment.
+* **IaC:** Kubernetes manifests (`deployment.yaml`, `service.yaml`) are version-controlled in Git.
+* **Containerization:** The application is packaged into a Docker image.
 * **Secret Management:** Secure handling of credentials for the container registry and Kubernetes cluster.
 
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * **CI/CD:** Jenkins
 * **Orchestration:** K3s
@@ -22,7 +22,7 @@ This project showcases the implementation of several key DevOps principles:
 * **Infrastructure:** VM on VMware Workstation
 
 
-## 🗺️ Architecture Diagram
+## Architecture Diagram
 
 This diagram illustrates the overall infrastructure and the flow of the CI/CD pipeline, from a developer pushing code to the application running live in the Kubernetes cluster.
 
@@ -30,7 +30,7 @@ This diagram illustrates the overall infrastructure and the flow of the CI/CD pi
 `![Architecture Diagram](path/to/your/diagram.png)`
 
 
-## 🚀 The CI/CD Workflow
+## The CI/CD Workflow
 
 The entire process is automated by a `Jenkinsfile` and is triggered by a `git push` to the main branch.
 
@@ -43,13 +43,13 @@ The entire process is automated by a `Jenkinsfile` and is triggered by a `git pu
 5.  **Cleanup:** The Jenkins agent cleans up the local Docker image to conserve disk space.
 
 
-## 🔑 Key Learnings & Challenges
+## Key Learnings & Challenges
 
 * **Docker Networking in Jenkins:** A key challenge was enabling the Jenkins container to control the host's Docker daemon. This was solved by creating a custom Jenkins image with the Docker CLI and mounting the Docker socket (`/var/run/docker.sock`).
 * **K3s and Private Registries:** Configuring K3s to pull from an insecure (HTTP) Harbor registry required creating a `registries.yaml` file on the Kubernetes node, as K3s uses `containerd` and not the standard Docker daemon for its registry configuration.
 
 
-## 🔧 How to Run This Project
+## How to Run This Project
 
 1.  **Prerequisites:**
     * Three Ubuntu Server VMs (for Jenkins, Harbor, and K3s).
