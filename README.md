@@ -2,7 +2,6 @@
 
 This repository contains the complete setup for a CI/CD pipeline that automatically builds, tests, and deploys a containerized React application to a Kubernetes cluster. This project was built from scratch to demonstrate a practical, real-world DevOps workflow.
 
----
 
 ## 🏗️ Core Concepts Demonstrated
 
@@ -12,7 +11,6 @@ This project showcases the implementation of several key DevOps principles:
 * **Containerization:** The application is packaged into a lightweight, portable Docker image.
 * **Secret Management:** Secure handling of credentials for the container registry and Kubernetes cluster.
 
----
 
 ## 🛠️ Tech Stack
 
@@ -23,7 +21,6 @@ This project showcases the implementation of several key DevOps principles:
 * **Application:** React.js with Nginx
 * **Infrastructure:** Virtual Machines on VMware Workstation
 
----
 
 ## 🗺️ Architecture Diagram
 
@@ -32,7 +29,6 @@ This diagram illustrates the overall infrastructure and the flow of the CI/CD pi
 *(This is where you will embed the diagram image you create. In Markdown, you do it like this:)*
 `![Architecture Diagram](path/to/your/diagram.png)`
 
----
 
 ## 🚀 The CI/CD Workflow
 
@@ -46,14 +42,12 @@ The entire process is automated by a `Jenkinsfile` and is triggered by a `git pu
     * `kubectl apply` then triggers a **rolling update**, ensuring zero downtime for the application.
 5.  **Cleanup:** The Jenkins agent cleans up the local Docker image to conserve disk space.
 
----
 
 ## 🔑 Key Learnings & Challenges
 
 * **Docker Networking in Jenkins:** A key challenge was enabling the Jenkins container to control the host's Docker daemon. This was solved by creating a custom Jenkins image with the Docker CLI and mounting the Docker socket (`/var/run/docker.sock`).
 * **K3s and Private Registries:** Configuring K3s to pull from an insecure (HTTP) Harbor registry required creating a `registries.yaml` file on the Kubernetes node, as K3s uses `containerd` and not the standard Docker daemon for its registry configuration.
 
----
 
 ## 🔧 How to Run This Project
 
