@@ -28,7 +28,7 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 * The newly built image is pushed to a private Harbor registry
 * Jenkins uses `kubectl` to apply the Kubernetes `deployment.yaml`
   * It first updates the `deployment.yaml` to use the new image tag
-  * `kubectl apply` then triggers a rolling update
+  * `kubectl apply` to both `deployment.yaml` and `service.yaml`
 * The Jenkins agent cleans up the local Docker image to conserve disk space
 
 
