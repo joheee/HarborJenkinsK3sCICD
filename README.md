@@ -15,11 +15,11 @@ This project showcases the implementation of several key DevOps principles:
 ## 🛠️ Tech Stack
 
 * **CI/CD:** Jenkins
+* **Orchestration:** K3s
+* **Application:** React JS
 * **Containerization:** Docker
 * **Container Registry:** Harbor
-* **Orchestration:** K3s (Lightweight Kubernetes)
-* **Application:** React.js with Nginx
-* **Infrastructure:** Virtual Machines on VMware Workstation
+* **Infrastructure:** VM on VMware Workstation
 
 
 ## 🗺️ Architecture Diagram
