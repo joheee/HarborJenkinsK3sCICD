@@ -1,6 +1,6 @@
-# End-to-End CI/CD Pipeline for a React Application
+# End-to-End CI/CD Pipeline
 
-This repository contains the complete setup for a CI/CD pipeline that automatically builds, tests, and deploys a containerized React application to a Kubernetes cluster. This project was built from scratch to demonstrate a practical, real-world DevOps workflow.
+This repository contains the complete setup for a CI/CD pipeline that automatically builds and deploys a containerized React application to a Kubernetes cluster. 
 
 
 ## 🏗️ Core Concepts Demonstrated
