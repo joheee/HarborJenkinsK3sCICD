@@ -31,7 +31,7 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 * The Jenkins agent cleans up the local Docker image to conserve disk space.
 
 
-## How to Run This Project
+<!-- ## How to Run This Project
 
 1.  **Prerequisites:**
     * Three Ubuntu Server VMs (for Jenkins, Harbor, and K3s).
@@ -40,4 +40,4 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
     * Store your Harbor and K3s credentials securely in the Jenkins Credentials Manager.
     * Update the repository URL in the Jenkins job configuration.
 3.  **Run:**
-    * Trigger the pipeline manually or by pushing a change to the GitHub repository.
+    * Trigger the pipeline manually or by pushing a change to the GitHub repository. -->
