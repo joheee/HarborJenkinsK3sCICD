@@ -3,14 +3,6 @@
 This repository contains the complete setup for a CI/CD pipeline that automatically builds and deploys a containerized React application to a Kubernetes cluster. 
 
 
-## Core Concepts Demonstrated
-
-* **CI/CD:** Automation from code commit to production deployment.
-* **IaC:** Kubernetes manifests (`deployment.yaml`, `service.yaml`) are version-controlled in Git.
-* **Containerization:** The application is packaged into a Docker image.
-* **Secret Management:** Secure handling of credentials for the container registry and Kubernetes cluster.
-
-
 ## Tech Stack
 
 * **CI/CD:** Jenkins
