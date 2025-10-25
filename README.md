@@ -22,13 +22,13 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 
 ## The CI/CD Workflow
 
-* Jenkins pulls the latest source code from the GitHub repository.
-* Jenkins uses the `Dockerfile` to build a new, version-tagged Docker image of the React application. The image tag is automatically incremented using the Jenkins build number (e.g., `react-cicd:55`).
-* The newly built image is pushed to a private Harbor registry, ensuring our artifacts are stored securely.
-* Jenkins uses `kubectl` to apply the Kubernetes manifests (`deployment.yaml` and `service.yaml`).
-  * It first updates the `deployment.yaml` to use the new image tag.
-  * `kubectl apply` then triggers a rolling update, ensuring zero downtime for the application.
-* The Jenkins agent cleans up the local Docker image to conserve disk space.
+* Jenkins pulls the latest source code from the GitHub repository
+* Jenkins uses the `Dockerfile` to build a new, version-tagged Docker image of the React application. The image tag is automatically incremented using the Jenkins build number (e.g., `react-cicd:55`)
+* The newly built image is pushed to a private Harbor registry, ensuring our artifacts are stored securely
+* Jenkins uses `kubectl` to apply the Kubernetes `deployment.yaml`
+  * It first updates the `deployment.yaml` to use the new image tag
+  * `kubectl apply` then triggers a rolling update
+* The Jenkins agent cleans up the local Docker image to conserve disk space
 
 
 <!-- ## How to Run This Project
