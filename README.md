@@ -13,14 +13,9 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 * **Infrastructure:** VM on VMware Workstation
 
 
-## Architecture Diagram
+## The CI/CD Workflow
 
 ![Architecture Diagram](public/diagram.png)
-* exp 1 
-* exp 2
-
-
-## The CI/CD Workflow
 
 * Jenkins pulls the latest source code from the GitHub repository
 * Jenkins uses the `Dockerfile` to build a new version-tagged Docker image of the React application 
