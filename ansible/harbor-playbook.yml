@@ -1,0 +1,5 @@
+- name: Configure Harbor Server
+  hosts: harbor_server
+  become: yes
+  roles:
+    - harbor
