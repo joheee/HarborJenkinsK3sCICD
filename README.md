@@ -21,9 +21,8 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 * Jenkins uses the `Dockerfile` to build a new version-tagged Docker image of the React application 
 * The image tag is automatically incremented using the Jenkins build number
 * The newly built image is pushed to a private Harbor registry
-* Jenkins uses `kubectl` to apply the Kubernetes `deployment.yaml`
-  * It first updates the `deployment.yaml` to use the new image tag
-  * `kubectl apply` to both `deployment.yaml` and `service.yaml`
+* Jenkins updates the `deployment.yaml` to use the new image tag
+* Jenkins runs `kubectl apply` to both `deployment.yaml` and `service.yaml`
 * The Jenkins agent cleans up the local Docker image to conserve disk space
 
 
