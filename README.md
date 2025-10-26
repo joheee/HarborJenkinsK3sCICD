@@ -27,6 +27,10 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 * The Jenkins agent cleans up the local Docker image to conserve disk space
 
 
+## Ansible Folder Structure
+ansible/ 
+├── inventory.ini # Mendefinisikan alamat IP dari VM kita │ ├── jenkins-playbook.yml # Playbook untuk mengkonfigurasi server Jenkins ├── harbor-playbook.yml # Playbook untuk mengkonfigurasi server Harbor ├── k3s-playbook.yml # Playbook untuk mengkonfigurasi server K3s │ └── roles/ # Direktori yang berisi semua logika otomatisasi ├── jenkins/ │ └── tasks/ │ └── main.yml # Semua langkah untuk menyiapkan Jenkins │ ├── harbor/ │ └── tasks/ │ └── main.yml # Semua langkah untuk menyiapkan Harbor │ └── k3s/ └── tasks/ └── main.yml # Semua langkah untuk menyiapkan K3s
+
 <!-- ## How to Run This Project
 
 1.  **Prerequisites:**
