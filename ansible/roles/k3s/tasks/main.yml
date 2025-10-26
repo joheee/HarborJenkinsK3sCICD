@@ -1,7 +1,12 @@
-- name: Get uptime hosts
-  command: uptime -p
-  register: uptime_result
+- name: Install K3s
+  shell: "curl -sfL https://get.k3s.io | sh -"
+  args:
+    creates: /usr/local/bin/k3s
 
-- name: Display the uptime result
-  debug:
-    msg: "The server uptime is: {{ uptime_result.stdout }}"
+- name: Create nginx deployment
+  shell: kubectl create deployment nginx-deployment --image=nginx
+  ignore_errors: yes
+
+- name: Create nginx service
+  shell: kubectl expose deployment nginx-deployment --type=NodePort --port=80
+  ignore_errors: yes
