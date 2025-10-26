@@ -13,7 +13,7 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 * **Infrastructure:** VM on VMware Workstation
 
 
-# Architecture Diagram
+## Architecture Diagram
 
 ![Architecture Diagram](public/diagram.png)
 * exp 1 
