@@ -15,7 +15,7 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 
 ## Architecture Diagram
 
-`![Architecture Diagram](path/to/your/diagram.png)`
+`![Architecture Diagram](public/diagram.png)`
 * exp 1 
 * exp 2
 
