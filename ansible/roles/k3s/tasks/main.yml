@@ -1,0 +1,7 @@
+- name: Get uptime hosts
+  command: uptime -p
+  register: uptime_result
+
+- name: Display the uptime result
+  debug:
+    msg: "The server uptime is: {{ uptime_result.stdout }}"
