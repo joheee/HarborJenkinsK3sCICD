@@ -28,8 +28,23 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 
 
 ## Ansible Folder Structure
+```
 ansible/ 
-├── inventory.ini # Mendefinisikan alamat IP dari VM kita │ ├── jenkins-playbook.yml # Playbook untuk mengkonfigurasi server Jenkins ├── harbor-playbook.yml # Playbook untuk mengkonfigurasi server Harbor ├── k3s-playbook.yml # Playbook untuk mengkonfigurasi server K3s │ └── roles/ # Direktori yang berisi semua logika otomatisasi ├── jenkins/ │ └── tasks/ │ └── main.yml # Semua langkah untuk menyiapkan Jenkins │ ├── harbor/ │ └── tasks/ │ └── main.yml # Semua langkah untuk menyiapkan Harbor │ └── k3s/ └── tasks/ └── main.yml # Semua langkah untuk menyiapkan K3s
+├── inventory.ini
+├── jenkins-playbook.yml
+├── harbor-playbook.yml
+├── k3s-playbook.yml
+└── roles/
+    ├── jenkins/ 
+    |   └── tasks/
+    |       └── main.yml
+    ├── harbor/
+    |   └── tasks/
+    |       └── main.yml
+    └── k3s/ 
+        └── tasks/ 
+            └── main.yml
+```
 
 <!-- ## How to Run This Project
 
