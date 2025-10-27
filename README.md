@@ -10,6 +10,7 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 * **Application:** React JS
 * **Containerization:** Docker
 * **Container Registry:** Harbor
+* **Configuration Management:** Ansible
 * **Infrastructure:** VM on VMware Workstation
 
 
