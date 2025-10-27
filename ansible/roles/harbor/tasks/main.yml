@@ -1,0 +1,4 @@
+- name: Download Harbor Installer Version {{ harbor_version }}
+  get_url: 
+    url: "https://github.com/goharbor/harbor/releases/download/v{{harbor_version}}/harbor-offline-installer-v{{harbor_version}}.tgz"
+    dest: "/tmp/harbor-v{{harbor_version}}.tgz"
