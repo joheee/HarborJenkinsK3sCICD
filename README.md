@@ -39,11 +39,15 @@ ansible/
     |   └── tasks/
     |       └── main.yml
     ├── harbor/
-    |   └── tasks/
-    |       └── main.yml
-    └── k3s/ 
-        └── tasks/ 
-            └── main.yml
+    |   ├── tasks/
+    |   |   └── main.yml
+    |   └── templates/
+    |       └── harbor.yml.j2
+    └── k3s/
+        ├── tasks/
+        |   └── main.yml
+        └── templates/ 
+            └── registries.yml.j2
 ```
 
 ## K3s Folder Structure
