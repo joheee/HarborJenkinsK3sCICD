@@ -1,17 +1,38 @@
+- name: Get server uptime
+  ansible.builtin.command: uptime -p
+  register: uptime_result
+
+- name: Display the server uptime
+  ansible.builtin.debug:
+    msg: "✅ Koneksi Berhasil! Server telah aktif selama: {{ uptime_result.stdout }}"
+
+- name: 1. Fix interrupted dpkg runs (if any)
+  ansible.builtin.command: dpkg --configure -a
+  become: yes
+  changed_when: false
+
 - name: Install Docker and Docker Compose
   apt:
     name: ['docker.io', 'docker-compose']
     state: present
     update_cache: yes
+  become: yes
+
+- name: Ensure Docker service is started and enabled
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
 
 - name: Download Harbor Installer Version {{ harbor_version }}
   get_url: 
     url: "https://github.com/goharbor/harbor/releases/download/v{{harbor_version}}/harbor-offline-installer-v{{harbor_version}}.tgz"
-    dest: "/tmp/harbor-v{{harbor_version}}.tgz"
+    dest: "/opt/harbor-v{{harbor_version}}.tgz"
 
 - name: Unarchive the Harbor Installer
   unarchive:
-    src: "/tmp/harbor-v{{harbor_version}}.tgz"
+    src: "/opt/harbor-v{{harbor_version}}.tgz"
     dest: "/opt/"
     remote_src: yes
 
