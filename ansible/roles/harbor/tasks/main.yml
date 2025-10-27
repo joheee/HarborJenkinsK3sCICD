@@ -1,12 +1,4 @@
-- name: Get server uptime
-  ansible.builtin.command: uptime -p
-  register: uptime_result
-
-- name: Display the server uptime
-  ansible.builtin.debug:
-    msg: "✅ Koneksi Berhasil! Server telah aktif selama: {{ uptime_result.stdout }}"
-
-- name: 1. Fix interrupted dpkg runs (if any)
+- name: Fix interrupted dpkg runs (if any)
   ansible.builtin.command: dpkg --configure -a
   become: yes
   changed_when: false
