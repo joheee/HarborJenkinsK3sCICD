@@ -1,0 +1,4 @@
+mirrors:
+  "{{ hostvars['harbor-vm']['ansible_host'] }}":
+    endpoint:
+      - "http://{{ hostvars['harbor-vm']['ansible_host'] }}"

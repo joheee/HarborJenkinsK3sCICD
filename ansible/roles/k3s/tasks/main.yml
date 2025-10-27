@@ -10,3 +10,23 @@
 - name: Create nginx service
   shell: kubectl expose deployment nginx-deployment --type=NodePort --port=80
   ignore_errors: yes
+
+- name: Create K3s config directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/rancher/k3s
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Configure K3s to trust the insecure Harbor registry
+  ansible.builtin.template:
+    src: registries.yml.j2
+    dest: /etc/rancher/k3s/registries.yml
+    mode: '0644'
+  become: yes
+
+- name: Restart K3s Service
+  ansible.builtin.service:
+    name: k3s
+    state: restarted
+  become: yes
