@@ -1,4 +1,27 @@
+- name: Install Docker and Docker Compose
+  apt:
+    name: ['docker.io', 'docker-compose']
+    state: present
+    update_cache: yes
+
 - name: Download Harbor Installer Version {{ harbor_version }}
   get_url: 
     url: "https://github.com/goharbor/harbor/releases/download/v{{harbor_version}}/harbor-offline-installer-v{{harbor_version}}.tgz"
     dest: "/tmp/harbor-v{{harbor_version}}.tgz"
+
+- name: Unarchive the Harbor Installer
+  unarchive:
+    src: "/tmp/harbor-v{{harbor_version}}.tgz"
+    dest: "/opt/"
+    remote_src: yes
+
+- name: Configure Harbor using the template
+  template:
+    src: "harbor.yml.j2"
+    dest: "/opt/harbor/harbor.yml"
+
+- name: Run the Harbor install script
+  command: "./install.sh"
+  args:
+    chdir: "/opt/harbor/"
+    creates: "/opt/harbor/docker-compose.yml"
