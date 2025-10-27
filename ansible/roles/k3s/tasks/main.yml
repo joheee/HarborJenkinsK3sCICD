@@ -3,14 +3,6 @@
   args:
     creates: /usr/local/bin/k3s
 
-- name: Create nginx deployment
-  shell: kubectl create deployment nginx-deployment --image=nginx
-  ignore_errors: yes
-
-- name: Create nginx service
-  shell: kubectl expose deployment nginx-deployment --type=NodePort --port=80
-  ignore_errors: yes
-
 - name: Create K3s config directory if it does not exist
   ansible.builtin.file:
     path: /etc/rancher/k3s
