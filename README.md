@@ -45,6 +45,13 @@ ansible/
             └── main.yml
 ```
 
+## K3s Folder Structure
+```
+k3s/ 
+├── deployment.yml
+└── service.yml
+```
+
 <!-- ## How to Run This Project
 
 1.  **Prerequisites:**
