@@ -1,4 +1,4 @@
-- name: Fix interrupted dpkg runs (if any)
+- name: Fix interrupted dpkg runs
   ansible.builtin.command: dpkg --configure -a
   become: yes
   changed_when: false
