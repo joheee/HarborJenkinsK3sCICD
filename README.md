@@ -19,7 +19,7 @@ This repository contains the complete setup for a CI/CD pipeline that automatica
 ![Architecture Diagram](public/diagram.png)
 
 * Jenkins pulls the latest source code from the GitHub repository
-* Jenkins uses the `Dockerfile` to build a new version-tagged Docker image of the React application 
+* Jenkins uses the `Dockerfile` to build a new version-tagged Docker image of the React 
 * The image tag is automatically incremented using the Jenkins build number
 * The newly built image is pushed to a private Harbor registry
 * Jenkins updates the `deployment.yaml` to use the new image tag
@@ -50,12 +50,14 @@ ansible/
             └── registries.yml.j2
 ```
 
+
 ## K3s Folder Structure
 ```
 k3s/ 
 ├── deployment.yml
 └── service.yml
 ```
+
 
 <!-- ## How to Run This Project
 
