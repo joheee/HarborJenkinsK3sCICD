@@ -1,0 +1,16 @@
+# Start with the official, stable Jenkins image as our base
+FROM jenkins/jenkins:lts-jdk17
+
+# Switch to the root user to get permission to install software
+USER root
+
+# Update package lists and install the Docker command-line tool
+RUN apt-get update && apt-get install -y docker.io
+
+# Download and install the kubectl command-line tool
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
+    rm kubectl
+
+# Switch back to the non-root jenkins user for better security
+USER jenkins
