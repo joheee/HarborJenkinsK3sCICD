@@ -36,8 +36,10 @@ ansible/
 ├── k3s-playbook.yml
 └── roles/
     ├── jenkins/ 
-    |   └── tasks/
-    |       └── main.yml
+    |   ├── tasks/
+    |   |   └── main.yml
+    |   └── templates/
+    |       └── Dockerfile.j2
     ├── harbor/
     |   ├── tasks/
     |   |   └── main.yml
