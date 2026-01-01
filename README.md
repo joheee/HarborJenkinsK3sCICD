@@ -71,4 +71,3 @@ k3s/
     * Update the repository URL in the Jenkins job configuration.
 3.  **Run:**
     * Trigger the pipeline manually or by pushing a change to the GitHub repository. -->
-
