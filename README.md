@@ -52,7 +52,6 @@ ansible/
             └── registries.yml.j2
 ```
 
-
 ## K3s Folder Structure
 ```
 k3s/ 
