@@ -59,7 +59,6 @@ k3s/
 └── service.yml
 ```
 
-
 <!-- ## How to Run This Project
 
 1.  **Prerequisites:**
